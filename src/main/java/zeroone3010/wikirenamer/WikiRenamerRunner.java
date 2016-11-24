@@ -5,7 +5,6 @@ import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import javax.security.auth.login.LoginException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class WikiRenamerRunner {
 
@@ -27,7 +26,7 @@ public class WikiRenamerRunner {
         renameRules.getWillNotBeRenamed()
                 .forEach(name -> System.out.println(String.format("\"%s\"", name)));
 
-        if (!continuePrompt("Does this look good?")) {
+        if (!readBooleanInput("Does this look good?")) {
             System.out.println("Quitting without renaming.");
             System.exit(0);
         }
@@ -40,11 +39,18 @@ public class WikiRenamerRunner {
         System.out.println(String.format("Completed in %d milliseconds.", endTime - startTime));
     }
 
-    private static boolean continuePrompt(final String question) {
+    private static boolean readBooleanInput(final String question) {
+        final String input = readInput(String.format("%s [y/n] ", question));
+        if (input.matches("[ynYN]")) {
+            return "y".equalsIgnoreCase(input);
+        }
+        return readBooleanInput(question);
+    }
+
+    private static String readInput(final String question) {
         final Scanner reader = new Scanner(System.in);
-        System.out.println(String.format("%s [y/n] ", question));
-        final String input = reader.next(Pattern.compile("[ynYN]"));
-        return "y".equalsIgnoreCase(input);
+        System.out.println(question);
+        return reader.nextLine();
     }
 
     private static void validateArgs(final String... args) {
