@@ -1,6 +1,5 @@
 package zeroone3010.wikirenamer;
 
-import fastily.jwiki.util.Tuple;
 import net.sourceforge.jwbf.mediawiki.actions.editing.MovePage;
 import net.sourceforge.jwbf.mediawiki.actions.queries.CategoryMembersSimple;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
@@ -36,8 +35,7 @@ public class WikiRenamer {
                                      final Function<String, String> renameRule) {
         final Map<String, String> renamings = pages.stream()
                 .filter(renameCriteria)
-                .map(page -> new Tuple<>(page, renameRule.apply(page)))
-                .collect(toMap(t -> t.x, t -> t.y));
+                .collect(toMap(page -> page, renameRule::apply));
         final List<String> willNotBeRenamed = pages.stream()
                 .filter(renameCriteria.negate())
                 .collect(toList());
