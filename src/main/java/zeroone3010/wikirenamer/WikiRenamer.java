@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 public class WikiRenamer {
-    final MediaWikiBot bot;
+    private final MediaWikiBot bot;
 
     public WikiRenamer(final MediaWikiBot bot) {
         this.bot = bot;
