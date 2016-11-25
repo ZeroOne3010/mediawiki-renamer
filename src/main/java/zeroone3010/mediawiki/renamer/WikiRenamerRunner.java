@@ -10,6 +10,7 @@ public class WikiRenamerRunner {
 
     public static void main(final String... args) throws LoginException {
         validateArgs(args);
+        displayInstructions();
         final MediaWikiBot mediaWikiBot = new MediaWikiBot(args[2]);
         mediaWikiBot.login(args[0], args[1]);
 
@@ -40,6 +41,18 @@ public class WikiRenamerRunner {
         final long endTime = System.currentTimeMillis();
 
         System.out.println(String.format("Completed in %d milliseconds.", endTime - startTime));
+    }
+
+    private static void displayInstructions() {
+        System.out.println("This application will help you rename several wiki articles at once.");
+        System.out.println("Here's how it's going to work. You'll first be prompted for the name");
+        System.out.println("of a category that contains the articles you intend to rename. Next you");
+        System.out.println("may define an exception rule: a string that may appear in the name of");
+        System.out.println("a page, which will make the page be ignored in the renaming process.");
+        System.out.println("Finally you'll be prompted for a string to be appended into the page");
+        System.out.println("names. The application then shows you its plan and you will need to");
+        System.out.println("accept or reject that plan. If you accept, the application will");
+        System.out.println("perform the renaming process.");
     }
 
     private static boolean readBooleanInput(final String question) {
