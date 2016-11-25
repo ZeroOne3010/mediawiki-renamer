@@ -1,4 +1,4 @@
-package zeroone3010.wikirenamer;
+package zeroone3010.mediawiki.renamer;
 
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 

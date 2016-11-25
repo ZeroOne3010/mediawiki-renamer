@@ -1,4 +1,4 @@
-package zeroone3010.wikirenamer;
+package zeroone3010.mediawiki.renamer;
 
 import net.sourceforge.jwbf.mediawiki.actions.editing.MovePage;
 import net.sourceforge.jwbf.mediawiki.actions.queries.CategoryMembersSimple;
