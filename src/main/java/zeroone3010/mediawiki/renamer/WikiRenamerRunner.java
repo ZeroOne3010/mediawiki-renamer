@@ -14,10 +14,13 @@ public class WikiRenamerRunner {
         mediaWikiBot.login(args[0], args[1]);
 
         final WikiRenamer renamer = new WikiRenamer(mediaWikiBot);
-        final List<String> articleNames = renamer.findCategoryPages("City-states (Civ5)");
+        final String categoryName = readInput("Please enter the name of a category:");
+        final String unless = readInput("Define an exception rule -- ignore pages whose name contain this string:");
+        final String append = readInput("Define a string to append to the page names:");
+        final List<String> articleNames = renamer.findCategoryPages(categoryName);
         final RenameRules renameRules = renamer.prepareRename(articleNames,
-                name -> !name.contains("(Civ"),
-                name -> String.format("%s (Civ5)", name));
+                name -> !name.contains(unless),
+                name -> String.format("%s%s", name, append));
 
         System.out.println("About to rename articles like this:");
         renameRules.getRenamings()
